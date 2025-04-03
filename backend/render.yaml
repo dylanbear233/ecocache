@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: ecocache-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn ecocache.wsgi
+    autoDeploy: true
+    envVars:
+      - key: DB_NAME
+        fromEnvVar: DB_NAME
+      - key: DB_USER
+        fromEnvVar: DB_USER
+      - key: DB_PASSWORD
+        fromEnvVar: DB_PASSWORD
+      - key: DB_HOST
+        fromEnvVar: DB_HOST
+    preDeployCommand: python manage.py migrate
