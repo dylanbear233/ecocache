@@ -24,3 +24,22 @@ def register_view(request):
             return JsonResponse({"message": f"Error: {str(e)}"}, status=500)
 
     return JsonResponse({"message": "Only POST method allowed"}, status=405)
+
+@csrf_exempt
+def login_view(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            username = data.get("username")
+            password = data.get("password")
+
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                return JsonResponse({"message": "Login successful!"}, status=200)
+            else:
+                return JsonResponse({"message": "Invalid credentials."}, status=401)
+        except Exception as e:
+            return JsonResponse({"message": f"Error: {str(e)}"}, status=500)
+
+    return JsonResponse({"message": "Only POST method allowed"}, status=405)
