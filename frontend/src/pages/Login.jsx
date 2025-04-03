@@ -16,6 +16,9 @@ export default function Login() {
       const data = await res.json();
       if (res.ok) {
         setMessage("Login successful!");
+        setTimeout(() => {
+          navigate("/dashboard"); // ← 跳转
+        }, 500);
       } else {
         setMessage(data.message || "Login failed.");
       }
