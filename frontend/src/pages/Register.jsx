@@ -9,7 +9,7 @@ export default function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("https://your-backend-url.com/api/register", {
+      const res = await fetch("https://ecocache-backend.onrender.com/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, email, password })
