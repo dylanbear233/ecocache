@@ -4,6 +4,9 @@ from django.http import JsonResponse
 from django.contrib.auth import authenticate
 import json
 
+def home_view(request):
+    return JsonResponse({"message": "Welcome to EcoCache backend!"})
+
 @csrf_exempt
 def register_view(request):
     if request.method == "POST":
