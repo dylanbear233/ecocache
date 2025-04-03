@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 import json
 
+
 @csrf_exempt
 def register_view(request):
     if request.method == "POST":
@@ -22,7 +23,11 @@ def register_view(request):
             User.objects.create_user(username=username, email=email, password=password)
             return JsonResponse({"message": "Registration successful"}, status=201)
         except Exception as e:
-            return JsonResponse({"message": str(e)}, status=500)
+            return JsonResponse({"message": f"Error: {str(e)}"}, status=500)
+
+    # ✅ 如果不是 POST 请求，也返回响应
+    return JsonResponse({"message": "Only POST method allowed"}, status=405)
+
 
 @csrf_exempt
 def login_view(request):
