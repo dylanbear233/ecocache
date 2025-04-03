@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState(""); // ← 改这里
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
@@ -11,7 +11,7 @@ export default function Login() {
       const res = await fetch("https://ecocache-backend.onrender.com/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ username, password }) // ← 改这里
       });
       const data = await res.json();
       if (res.ok) {
@@ -29,10 +29,10 @@ export default function Login() {
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          placeholder="Username" // ← 改这里
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           required
         />
         <input
