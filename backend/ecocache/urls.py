@@ -19,6 +19,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('api/', include('api.urls')),  # ✅ 关键一行：注册 app 路由
-    path('', include('backend.api.urls')),
+    path('', include('api.urls')),  # ✅ 关键一行：注册 app 路由
 ]
