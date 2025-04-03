@@ -39,3 +39,4 @@ def login_view(request):
                 return JsonResponse({"message": "Invalid credentials"}, status=401)
         except Exception as e:
             return JsonResponse({"message": str(e)}, status=500)
+
