@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 export default function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-
-  const navigate = useNavigate(); 
-  
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -17,7 +14,7 @@ export default function Register() {
       const res = await fetch("https://ecocache-backend.onrender.com/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password })
+        body: JSON.stringify({ username, email, password }),
       });
       const data = await res.json();
       if (res.ok) {
@@ -58,6 +55,7 @@ export default function Register() {
         <button type="submit">Register</button>
         <p>{message}</p>
       </form>
+
       <button className="nav-button" onClick={() => navigate("/")}>Back to Home</button>
       <button className="nav-button" onClick={() => navigate("/login")}>Already have an account? Login</button>
     </div>

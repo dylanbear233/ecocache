@@ -2,26 +2,23 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const [username, setUsername] = useState(""); 
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
-  const navigate = useNavigate(); 
-  
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("https://ecocache-backend.onrender.com/api/login", {
+      const res = await fetch("https://ecocache-backend.onrender.com/api/token/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }) 
+        body: JSON.stringify({ username, password }),
       });
-
       const data = await res.json();
       if (res.ok) {
         localStorage.setItem("token", data.access);
         setMessage("Login successful!");
-
         setTimeout(() => {
           navigate("/dashboard");
         }, 500);
@@ -39,7 +36,7 @@ export default function Login() {
       <form onSubmit={handleLogin}>
         <input
           type="text"
-          placeholder="Username" 
+          placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
@@ -55,7 +52,8 @@ export default function Login() {
         <p>{message}</p>
       </form>
 
-      <button onClick={() => navigate("/")}>Back to Home</button>
+      <button className="nav-button" onClick={() => navigate("/")}>Back to Home</button>
+      <button className="nav-button" onClick={() => navigate("/register")}>Don't have an account? Register</button>
     </div>
   );
 }
