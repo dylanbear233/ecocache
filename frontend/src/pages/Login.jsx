@@ -21,7 +21,7 @@ export default function Login() {
       if (res.ok) {
         localStorage.setItem("token", data.access);
         setMessage("Login successful!");
-        
+
         setTimeout(() => {
           navigate("/dashboard");
         }, 500);
@@ -54,6 +54,8 @@ export default function Login() {
         <button type="submit">Login</button>
         <p>{message}</p>
       </form>
+
+      <button onClick={() => navigate("/")}>Back to Home</button>
     </div>
   );
 }
