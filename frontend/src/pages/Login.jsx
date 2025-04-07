@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const [username, setUsername] = useState(""); // ← 改这里
+  const [username, setUsername] = useState(""); 
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
@@ -14,13 +14,13 @@ export default function Login() {
       const res = await fetch("https://ecocache-backend.onrender.com/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }) // ← 改这里
+        body: JSON.stringify({ username, password }) 
       });
       const data = await res.json();
       if (res.ok) {
         setMessage("Login successful!");
         setTimeout(() => {
-          navigate("/dashboard"); // ← 跳转
+          navigate("/dashboard");
         }, 500);
       } else {
         setMessage(data.message || "Login failed.");
@@ -36,7 +36,7 @@ export default function Login() {
       <form onSubmit={handleLogin}>
         <input
           type="text"
-          placeholder="Username" // ← 改这里
+          placeholder="Username" 
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
