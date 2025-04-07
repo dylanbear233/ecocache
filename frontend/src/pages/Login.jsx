@@ -16,9 +16,12 @@ export default function Login() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }) 
       });
+
       const data = await res.json();
       if (res.ok) {
+        localStorage.setItem("token", data.access);
         setMessage("Login successful!");
+        
         setTimeout(() => {
           navigate("/dashboard");
         }, 500);
