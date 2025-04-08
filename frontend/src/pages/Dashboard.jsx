@@ -26,7 +26,8 @@ export default function Dashboard() {
         setUser(data);
         setLoading(false);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error("fetch error", err);
         localStorage.removeItem("token");
         navigate("/login");
       });
