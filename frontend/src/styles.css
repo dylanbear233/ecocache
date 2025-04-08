@@ -86,3 +86,14 @@ a:hover {
 .nav-button:hover {
     background-color: #1976d2;
 }
+
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: vertical;
+  }
+  

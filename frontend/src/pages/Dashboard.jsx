@@ -46,6 +46,9 @@ export default function Dashboard() {
         <>
           <p>Welcome, <strong>{user.username}</strong>!</p>
           <p>Email: {user.email}</p>
+          <button onClick={() => navigate("/share")} className="nav-button">
+        Share a Discovery
+          </button>
           <button onClick={handleLogout}>Logout</button>
         </>
       )}
