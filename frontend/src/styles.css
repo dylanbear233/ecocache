@@ -95,5 +95,31 @@ textarea {
     border-radius: 5px;
     border: 1px solid #ccc;
     resize: vertical;
-  }
-  
+}
+
+.discovery-list {
+    margin-top: 2rem;
+}
+
+.discovery-item {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    background-color: #fdfdfd;
+}
+
+.discovery-item h4 {
+    margin-bottom: 0.5rem;
+}
+
+.discovery-item .discovery-image {
+    max-width: 100%;
+    height: auto;
+    margin: 0.5rem 0;
+}
+
+.discovery-item .meta {
+    font-size: 0.9rem;
+    color: #666;
+}
