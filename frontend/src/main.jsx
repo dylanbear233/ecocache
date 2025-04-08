@@ -19,10 +19,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/" element={<App />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route element={<RequireAuth />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/share" element={<ShareDiscovery />} />
+        {/* <Route element={<RequireAuth />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/share" element={<ShareDiscovery />} />
-        </Route>
+        </Route> */}
       </Routes>
     </HashRouter>
   </React.StrictMode>
