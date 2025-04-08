@@ -42,15 +42,17 @@ export default function Dashboard() {
       <h2>Dashboard</h2>
       {loading ? (
         <p>Loading user info...</p>
-      ) : (
+      ) : user ? (
         <>
           <p>Welcome, <strong>{user.username}</strong>!</p>
           <p>Email: {user.email}</p>
           <button onClick={() => navigate("/share")} className="nav-button">
-        Share a Discovery
+            Share a Discovery
           </button>
           <button onClick={handleLogout}>Logout</button>
         </>
+      ) : (
+        <p>Failed to load user information.</p>
       )}
     </div>
   );
