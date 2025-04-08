@@ -11,21 +11,25 @@ export default function Dashboard() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    console.log("RequireAuth - token:", token);
+  
     if (!token) {
-      console.warn("No token found");
+      console.warn("No token, navigating to login");
       navigate("/login");
       return;
     }
   
     console.log("Fetching userinfo...");
+  
     fetch("https://ecocache-backend.onrender.com/api/userinfo/", {
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
       .then((res) => {
+        console.log("userinfo res:", res.status);
         if (!res.ok) {
-          throw new Error(`HTTP ${res.status}`);
+          throw new Error(`HTTP error ${res.status}`);
         }
         return res.json();
       })
@@ -35,11 +39,12 @@ export default function Dashboard() {
         setLoading(false);
       })
       .catch((err) => {
-        console.error("User fetch error:", err);
+        console.error("User fetch failed:", err);
         localStorage.removeItem("token");
         navigate("/login");
       });
   }, [navigate]);
+  
   
   
 
