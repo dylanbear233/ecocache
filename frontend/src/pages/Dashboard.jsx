@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import DiscoveryList from "./DiscoveryList";
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
@@ -50,11 +51,14 @@ export default function Dashboard() {
           <button onClick={() => navigate("/share")} className="nav-button">
             Share a Discovery
           </button>
-          <button onClick={handleLogout}>Logout</button>
+          <button className="nav-button" onClick={handleLogout}>Logout</button>
         </>
       ) : (
         <p>Failed to load user information.</p>
       )}
+      <DiscoveryList />
+
     </div>
+    
   );
 }
