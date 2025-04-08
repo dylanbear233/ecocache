@@ -2,25 +2,26 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function ShareDiscovery() {
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
   const [message, setMessage] = useState("");
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const token = localStorage.getItem("token");
     if (!token) {
-      setMessage("Please login first.");
+      setMessage("You must be logged in.");
       return;
     }
 
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
-    if (image) formData.append("image", image);
+    formData.append("image", image);
 
     try {
       const res = await fetch("https://ecocache-backend.onrender.com/api/discoveries/create/", {
@@ -32,9 +33,19 @@ export default function ShareDiscovery() {
       });
 
       const data = await res.json();
+
       if (res.ok) {
         setMessage("Discovery shared successfully!");
-        setTimeout(() => navigate("/dashboard"), 1000);
+
+        // empty the form fields
+        setTitle("");
+        setContent("");
+        setImage(null);
+
+        // jump to the dashboard page after 1 second
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 1000);
       } else {
         setMessage(data.message || "Failed to share discovery.");
       }
@@ -55,23 +66,20 @@ export default function ShareDiscovery() {
           required
         />
         <textarea
-          placeholder="What did you find?"
+          placeholder="Content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           required
-          rows={4}
         />
         <input
           type="file"
           accept="image/*"
           onChange={(e) => setImage(e.target.files[0])}
+          required
         />
-        <button type="submit">Share</button>
+        <button type="submit">Submit</button>
         <p>{message}</p>
       </form>
-      <button onClick={() => navigate("/dashboard")} className="nav-button">
-        Back to Dashboard
-      </button>
     </div>
   );
 }
