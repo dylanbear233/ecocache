@@ -2,12 +2,12 @@ import { Navigate } from "react-router-dom";
 
 export default function RequireAuth({ children }) {
   const token = localStorage.getItem("token");
+  console.log("RequireAuth - token:", token);
 
   if (!token) {
-    // Jump to login page if no token
+    console.log("Redirecting to login...");
     return <Navigate to="/login" replace />;
   }
 
-  // Loading the page if token exists
   return children;
 }
