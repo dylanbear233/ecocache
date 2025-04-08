@@ -8,30 +8,35 @@ export default function Dashboard() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    console.log("Token in Dashboard:", token); // ✅ 检查有没有 token
+  
     if (!token) {
       navigate("/login");
       return;
     }
-
+  
     fetch("https://ecocache-backend.onrender.com/api/userinfo/", {
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
       .then((res) => {
+        console.log("userinfo status", res.status);
         if (res.status === 401) throw new Error("Unauthorized");
         return res.json();
       })
       .then((data) => {
+        console.log("userinfo data", data);
         setUser(data);
         setLoading(false);
       })
       .catch((err) => {
-        console.error("fetch error", err);
+        console.error("userinfo fetch error", err);
         localStorage.removeItem("token");
         navigate("/login");
       });
   }, [navigate]);
+  
 
   const handleLogout = () => {
     localStorage.removeItem("token");
