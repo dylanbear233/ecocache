@@ -1,6 +1,8 @@
 from django.urls import path
 from .views import home_view, register_view, login_view, user_info_view, create_discovery, user_discoveries
 
+
+
 urlpatterns = [
     path('', home_view),
     path('register', register_view),
@@ -8,6 +10,6 @@ urlpatterns = [
     path("userinfo/", user_info_view),
     path("discoveries/create/", create_discovery),
     path("discoveries/my/", user_discoveries),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
 
 
