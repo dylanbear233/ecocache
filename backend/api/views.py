@@ -2,6 +2,10 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 import json
 
 def home_view(request):
@@ -47,3 +51,12 @@ def login_view(request):
             return JsonResponse({"message": f"Error: {str(e)}"}, status=500)
 
     return JsonResponse({"message": "Only POST method allowed"}, status=405)
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def user_info_view(request):
+    user = request.user
+    return Response({
+        "username": user.username,
+        "email": user.email
+    })
