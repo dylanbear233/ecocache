@@ -11,42 +11,38 @@ export default function Dashboard() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log("RequireAuth - token:", token);
+    console.log("useEffect triggered. Token:", token);
   
     if (!token) {
-      console.warn("No token, navigating to login");
+      console.warn("No token found, redirecting to login...");
       navigate("/login");
       return;
     }
   
-    console.log("Fetching userinfo...");
+    console.log("Token exists. Proceeding to fetch user info...");
   
     fetch("https://ecocache-backend.onrender.com/api/userinfo/", {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => {
-        console.log("userinfo res:", res.status);
-        if (!res.ok) {
-          throw new Error(`HTTP error ${res.status}`);
-        }
+        console.log("Response status:", res.status);
+        if (!res.ok) throw new Error(`Fetch error: ${res.status}`);
         return res.json();
       })
       .then((data) => {
-        console.log("Fetched user:", data);
+        console.log("User data received:", data);
         setUser(data);
         setLoading(false);
       })
       .catch((err) => {
-        console.error("User fetch failed:", err);
+        console.error("Fetch error occurred:", err);
         localStorage.removeItem("token");
         navigate("/login");
       });
   }, [navigate]);
-  
-  
-  
+   
 
   const handleLogout = () => {
     localStorage.removeItem("token");
