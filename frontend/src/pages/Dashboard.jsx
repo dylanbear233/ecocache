@@ -11,34 +11,36 @@ export default function Dashboard() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log("Token in Dashboard:", token); // ✅ 检查有没有 token
-  
     if (!token) {
+      console.warn("No token found");
       navigate("/login");
       return;
     }
   
+    console.log("Fetching userinfo...");
     fetch("https://ecocache-backend.onrender.com/api/userinfo/", {
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
       .then((res) => {
-        console.log("userinfo status", res.status);
-        if (res.status === 401) throw new Error("Unauthorized");
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
         return res.json();
       })
       .then((data) => {
-        console.log("userinfo data", data);
+        console.log("Fetched user:", data);
         setUser(data);
         setLoading(false);
       })
       .catch((err) => {
-        console.error("userinfo fetch error", err);
+        console.error("User fetch error:", err);
         localStorage.removeItem("token");
         navigate("/login");
       });
   }, [navigate]);
+  
   
 
   const handleLogout = () => {
