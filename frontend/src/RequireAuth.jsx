@@ -1,7 +1,6 @@
 import { Navigate } from "react-router-dom";
 
 export default function RequireAuth({ children }) {
-  console.log("Rendering RequireAuth...");
   const token = localStorage.getItem("token");
   console.log("RequireAuth - token:", token);
 

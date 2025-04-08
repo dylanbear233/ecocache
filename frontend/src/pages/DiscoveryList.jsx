@@ -26,7 +26,7 @@ export default function DiscoveryList() {
 
   return (
     <div className="discovery-list">
-      <h3>Your Discoveries</h3>
+      <h3>Your Shared Discoveries</h3>
       {loading ? (
         <p>Loading...</p>
       ) : discoveries.length === 0 ? (
@@ -36,8 +36,8 @@ export default function DiscoveryList() {
           <div key={item.id} className="discovery-item">
             <h4>{item.title}</h4>
             <p>{item.content}</p>
-            {item.image && (
-              <img src={item.image} alt={item.title} className="discovery-image" />
+            {item.image_url && (
+              <img src={item.image_url} alt={item.title} className="discovery-image" />
             )}
             <p className="meta">Published at: {new Date(item.created_at).toLocaleString()}</p>
           </div>
