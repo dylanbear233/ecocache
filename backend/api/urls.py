@@ -8,5 +8,6 @@ urlpatterns = [
     path("userinfo/", user_info_view),
     path("discoveries/create/", create_discovery),
     path("discoveries/my/", user_discoveries),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
