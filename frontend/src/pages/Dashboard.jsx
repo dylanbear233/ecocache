@@ -53,6 +53,8 @@ export default function Dashboard() {
     navigate("/login");
   };
 
+  console.log("Dashboard rendering...", { loading, user });
+
   return (
     <div className="container">
       <h2>Dashboard</h2>
@@ -70,6 +72,18 @@ export default function Dashboard() {
       ) : (
         <p>Failed to load user information.</p>
       )}
+
+      <button onClick={() => {
+        const token = localStorage.getItem("token");
+        console.log("Manual fetch token:", token);
+        fetch("https://ecocache-backend.onrender.com/api/userinfo/", {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+          .then(res => res.json())
+          .then(data => console.log("Manual fetch user:", data))
+          .catch(err => console.error("Manual fetch failed", err));
+      }}>Test Fetch</button>
+
     </div>
   );
 }
