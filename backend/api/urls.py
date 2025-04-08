@@ -7,6 +7,6 @@ urlpatterns = [
     path('login', login_view),
     path("userinfo/", user_info_view),
     path("discoveries/create/", create_discovery),
-
+    path("discoveries/my/", user_discoveries),
 ]
 

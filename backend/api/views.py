@@ -8,6 +8,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from .models import Discovery
+from .serializers import DiscoverySerializer
+
 
 import json
 
@@ -84,3 +86,11 @@ def create_discovery(request):
     )
 
     return Response({'message': 'Discovery created successfully!'})
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def user_discoveries(request):
+    user = request.user
+    discoveries = Discovery.objects.filter(user=user).order_by("-created_at")
+    serializer = DiscoverySerializer(discoveries, many=True, context={"request": request})
+    return Response(serializer.data)
