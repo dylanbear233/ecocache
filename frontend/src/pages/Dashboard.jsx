@@ -1,23 +1,54 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // delete token
-    localStorage.removeItem("token");
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
 
-    // return to login page
+    fetch("https://ecocache-backend.onrender.com/api/userinfo/", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then((res) => {
+        if (res.status === 401) throw new Error("Unauthorized");
+        return res.json();
+      })
+      .then((data) => {
+        setUser(data);
+        setLoading(false);
+      })
+      .catch(() => {
+        localStorage.removeItem("token");
+        navigate("/login");
+      });
+  }, [navigate]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
     navigate("/login");
   };
 
   return (
     <div className="container">
       <h2>Dashboard</h2>
-      <p>Welcome! You are logged in.</p>
-
-      {/* Logout button */}
-      <button onClick={handleLogout}>Logout</button>
+      {loading ? (
+        <p>Loading user info...</p>
+      ) : (
+        <>
+          <p>Welcome, <strong>{user.username}</strong>!</p>
+          <p>Email: {user.email}</p>
+          <button onClick={handleLogout}>Logout</button>
+        </>
+      )}
     </div>
   );
 }
